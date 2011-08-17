@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>UABEEA GeoBI - Widgets example</title>
+
+    <link rel="stylesheet" type="text/css" href="../../lib/externals/ext/resources/css/ext-all.css" />
+    <link rel="stylesheet" type="text/css" href="../../lib/externals/ext/resources/css/xtheme-gray.css" />
+    <link rel="stylesheet" type="text/css" href="../../lib/externals/ext/examples/ux/css/Spinner.css" />
+
+    <link rel="stylesheet" type="text/css" href="../../app/css/main.css" />
+
+    <script type="text/javascript" src="../../lib/externals/ext/adapter/ext/ext-base.js"></script>
+    <script type="text/javascript" src="../../lib/externals/ext/ext-all-debug.js"></script>
+
+    <script type="text/javascript" src="../../lib/externals/openlayers/lib/OpenLayers.js"></script>
+    <script type="text/javascript" src="../../lib/externals/geoext/lib/GeoExt.js"></script>
+    <script type="text/javascript" src="../../lib/externals/ext/examples/ux/Spinner.js"></script>
+    <script type="text/javascript" src="../../lib/externals/ext/examples/ux/SpinnerField.js"></script>
+
+    <script type="text/javascript" src="../../app/lib/App/cubeProperties.js"></script>
+    <script type="text/javascript" src="../../app/lib/App/messageMgr.js"></script>
+    <script type="text/javascript" src="../../app/lib/App/errorMgr.js"></script>
+    <script type="text/javascript" src="../../app/lib/App/DimensionChooser.js"></script>
+    <script type="text/javascript" src="../../app/lib/App/DimensionSelector.js"></script>
+    <script type="text/javascript" src="../../app/lib/App/MemberSelector.js"></script>
+    <script type="text/javascript" src="../../app/lib/App/MDX.js"></script>
+    <script type="text/javascript" src="../../app/lib/App/queryMgr.js"></script>
+    <script type="text/javascript" src="../../app/lib/App/queryBuilder.js"></script>
+    <script type="text/javascript" src="../../app/lib/App/GetInfo.js"></script>
+    <script type="text/javascript" src="../../app/lib/App/mapStyler.js"></script>
+    <script type="text/javascript" src="../../app/lib/App/map.js"></script>
+    <script type="text/javascript" src="../../app/lib/App/report.js"></script>
+    <script type="text/javascript" src="../../lib/externals/ext/examples/ux/ColumnHeaderGroup.js"></script>
+    <script type="text/javascript" src="../../app/lib/App/DrillableGridPanel.js"></script>
+    <script type="text/javascript" src="../../app/lib/App/DrillableHeader.js"></script>
+    <script type="text/javascript" src="../../app/lib/App/DrillableColumnHeaderGroup.js"></script>
+    <script type="text/javascript" src="../../app/lib/App/Ext.ux.grid.CellActions.js"></script>
+    <script type="text/javascript" src="../../app/lib/App/table.js"></script>
+    <script type="text/javascript" src="../../app/lib/App/chart.js"></script>
+    <script type="text/javascript" src="../../lib/externals/loadingpanel/lib/OpenLayers/Control/LoadingPanel.js"></script>
+
+    <script type="text/javascript" src="examples.js"></script>
+    <script type=text/javascript>
+        Ext.onReady(function() {
+
+            App.report.panel.render(Ext.getBody());
+            App.map.panel.render(Ext.getBody());
+            App.map.init();
+            App.table.panel.render(Ext.getBody());
+            App.chart.panel.render(Ext.getBody());
+        });
+    </script>
+
+</head>
+<body>
+    <div id="queries"></div>
+</body>
+</html>

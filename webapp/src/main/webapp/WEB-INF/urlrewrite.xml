@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+    <!DOCTYPE urlrewrite
+        PUBLIC "-//tuckey.org//DTD UrlRewrite 3.0//EN"
+        "http://tuckey.org/res/dtds/urlrewrite3.0.dtd">
+
+<urlrewrite>
+	<!-- Equivalent to Apache2 rewrite mod.
+	
+		For docs see http://code.google.com/p/urlrewritefilter/
+		
+		The following is an example rule   
+    <rule>
+        <from>^/(.*)$</from>
+        <to type="forward">/ws/$1</to>
+    </rule>
+	-->
+    <rule>
+        <from>^/ws/(.*)$</from>
+        <to type="forward" last="true">/ws/$1</to>
+    </rule>
+    <rule>
+        <from>^/get(.*)$</from>
+        <to type="forward" last="true">/ws/get$1</to>
+    </rule>
+    <rule>
+        <from>^/register(.*)$</from>
+        <to type="forward" last="true">/ws/register$1</to>
+    </rule>
+</urlrewrite>

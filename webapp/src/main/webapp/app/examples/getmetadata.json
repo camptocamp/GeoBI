@@ -1,0 +1,57 @@
+{
+    "choropleths_indicators": [{
+        "name": "Measures_AREAHA&LAND COVER 00&CLC_00_All Land Covers 00_1 Artificial surfaces",
+        "value": "{[Measures].[AREAHA]}.{[LAND COVER 00.CLC_00].[All Land Covers 00].[1 Artificial surfaces]}"
+    },
+    {
+        "name": "Measures_AREAHA&LAND COVER 00&CLC_00_All Land Covers 00_2 Agricultural areas",
+        "value": "{[Measures].[AREAHA]}.{[LAND COVER 00.CLC_00].[All Land Covers 00].[2 Agricultural areas]}"
+    },
+    {
+        "name": "Measures_AREAHA&LAND COVER 00&CLC_00_All Land Covers 00_3 Forest and semi natural areas",
+        "value": "{[Measures].[AREAHA]}.{[LAND COVER 00.CLC_00].[All Land Covers 00].[3 Forest and semi natural areas]}"
+    },
+    {
+        "name": "Measures_AREAHA&LAND COVER 00&CLC_00_All Land Covers 00_4 Wetlands",
+        "value": "{[Measures].[AREAHA]}.{[LAND COVER 00.CLC_00].[All Land Covers 00].[4 Wetlands]}"
+    },
+    {
+        "name": "Measures_AREAHA&LAND COVER 00&CLC_00_All Land Covers 00_5 Water bodies",
+        "value": "{[Measures].[AREAHA]}.{[LAND COVER 00.CLC_00].[All Land Covers 00].[5 Water bodies]}"
+    }],
+    "columns": [{
+        "dataIndex": "NUTS_NUTS LEVEL 0",
+        "header": "NUTS LEVEL 0"
+    },
+    {
+        "dataIndex": "REGIONAL SEA BASINS&RSEA_SEA BASINS",
+        "header": "SEA BASINS"
+    },
+    {
+        "dataIndex": "Measures_AREAHA&LAND COVER 00&CLC_00_All Land Covers 00_1 Artificial surfaces",
+        "header": "1 Artificial surfaces"
+    },
+    {
+        "dataIndex": "Measures_AREAHA&LAND COVER 00&CLC_00_All Land Covers 00_2 Agricultural areas",
+        "header": "2 Agricultural areas"
+    },
+    {
+        "dataIndex": "Measures_AREAHA&LAND COVER 00&CLC_00_All Land Covers 00_3 Forest and semi natural areas",
+        "header": "3 Forest and semi natural areas"
+    },
+    {
+        "dataIndex": "Measures_AREAHA&LAND COVER 00&CLC_00_All Land Covers 00_4 Wetlands",
+        "header": "4 Wetlands"
+    },
+    {
+        "dataIndex": "Measures_AREAHA&LAND COVER 00&CLC_00_All Land Covers 00_5 Water bodies",
+        "header": "5 Water bodies"
+    }],
+    "groups": [[
+        {header: ''/* no header for the spatial dimensions */, colspan: 2, align: 'center'},
+        {header: 'AREAHA', colspan: 5, align: 'center'}        
+    ],[
+        {header: ''/* no header for the spatial dimensions */, colspan: 2, align: 'center'},
+        {header: 'LAND COVER 90', colspan: 5, align: 'center'}        
+    ]]
+}

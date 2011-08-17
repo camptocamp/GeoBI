@@ -1,0 +1,238 @@
+import c2c.plugin.*
+
+apply plugin: 'java'
+apply plugin: 'war'
+apply plugin: 'jetty'
+apply plugin: 'eclipse'
+apply plugin: Camptocamp
+apply plugin: Geotools
+apply plugin: Spring
+apply plugin: 'project-report'
+
+extraLibs = "$projectDir/libs"
+
+def downloadDeps() {
+    def skip = System.properties['skipDownloadDeps']
+    if(skip != null && 'false' != skip.trim().toLowerCase()) {
+        println 'skipping download deps'
+        return
+    }
+    println "Download dependencies:"
+    
+    def baseURL = 'http://uabeea-geobi-dev.int.lsn.camptocamp.com/dependencies/'
+    def dependencies = ['commons-beanutils.jar', 'commons-math.jar', 'eigenbase-xom.jar',  'jts-1.10.jar', 'postgresql-8.4-701.jdbc3.jar', 
+                        'commons-collections-3.2.1.jar', 'commons-pool.jar', 'ezmorph-1.0.4.jar', 'log4j.jar', 'servlet-api.jar', 'commons-dbcp.jar', 
+                        'commons-vfs.jar', 'geomondrian.jar', 'mapfish-geo-lib-1.2-SNAPSHOT.jar', 'spatialytics.jar', 'commons-lang-2.4.jar', 'json-20080701.jar', 
+                        'eigenbase-properties.jar', 'jfreechart-1.0.13.jar', 'jcommon-1.0.16.jar', 'javacup.jar', 'olap4j.jar', 'commons-logging-1.1.1.jar', 'eigenbase-resgen.jar', 'postgis-1.4.0.jar' ]
+    
+    new File(extraLibs).mkdirs()
+    
+    dependencies.each { dep ->
+        ant.get (src: baseURL + dep,
+                 dest: "$extraLibs/$dep",
+                 skipexisting: true,
+                 verbose: true)
+    }
+}
+
+dependencies {
+    downloadDeps()
+    
+    compile ('org.mapfish.print:print-lib:1.2-GEOBI') {
+        exclude module: 'org.geotools'
+    }
+    compile 'net.sf.ehcache:ehcache-core:2.2.0'
+    compile fileTree(dir: extraLibs, include: '*.jar')
+}
+def contextName = 'webbi'
+jettyRun {
+    httpPort = 8080
+    scanTargets = fileTree("src/main/").include("java/**").include("webapp/WEB-INF/**").files
+    scanIntervalSeconds = 5
+    
+    contextPath = contextName
+    dependsOn 'jsMinify'
+}
+
+war {
+  baseName = contextName
+  dependsOn 'jsMinify'
+}
+
+tasks.addRule("Pattern: war<server>") { String taskName ->
+  if (taskName.startsWith("war")) {
+    System.properties['server'] = taskName.substring(3).toLowerCase();
+    war.destinationDir = new File(war.destinationDir, File.separator + System.properties['server'])
+
+    task(taskName, dependsOn: war) << {
+      println "Completed building a war file for " + System.properties['server'] + "server"
+      println "File is in directory: " + war.archivePath
+    }
+  }
+}
+
+tasks.addRule("Pattern: build<server>") { String taskName ->
+  if (taskName.startsWith("build")) {
+    System.properties['server'] = taskName.substring(5).toLowerCase();
+    war.destinationDir = new File(war.destinationDir, File.separator + System.properties['server'])
+
+    task(taskName, dependsOn: build) << {
+      println "Completed building for " + System.properties['server'] + "server"
+      println "File is in directory: " + war.archivePath
+    }
+  }
+}
+
+
+configurations{jsMinify}
+dependencies{jsMinify 'com.yahoo.platform.yui:yuicompressor:2.3.6'}
+
+def minifiedJsOut = new File(webAppDir, 'lib/minified')
+def combinedOut = new File(buildDir,"tmp/")
+def minifiedExt = new File(minifiedJsOut, 'extjs-all.js')
+def combinedExt = new File(combinedOut,"ext-combined.js")
+def minifiedOL = new File(minifiedJsOut, 'OpenLayers.js')
+def combinedOL = new File(combinedOut,"ol-combined.js")
+def minifiedGeoExt = new File(minifiedJsOut, 'GeoExt.js')
+def combinedGeoExt = new File(combinedOut,"geoext-combined.js")
+def minifiedApp = new File(minifiedJsOut, 'app-all.js')
+def combinedApp = new File(combinedOut,"app-combined.js")
+
+
+task (copyJsResources, type:Sync) {
+  from new File(webAppDir,'lib/externals/openlayers')
+  into minifiedJsOut
+
+  include 'img/**'
+  include 'theme/**'
+}
+
+
+def lookupJsFiles(file, encoding) {
+  String text = file.getText(encoding)
+  def pattern = ~/var jsfiles = new Array\(((\s*"[^"),]*?",?\s*)+)\)/
+  def matcher = pattern.matcher(text)
+  matcher.find()
+  def filesNames = matcher.group(1).trim().split(",").collect{it.trim()}.collect{f -> f.substring(1,f.length() - 1)}
+  def files = [file]
+  files.addAll(filesNames.collect{new File(file.parentFile, it)})
+  return files
+}
+
+def write(writer, file ,encoding) {
+  logger.debug("Writing "+file)
+  writer.write("\n/* ***** Start of ${file.name} **** */\n")
+  writer.write(file.getText(encoding))
+  writer.write("\n/* ***** End of ${file.name} **** */\n")
+}
+
+
+task(combineExtJs, dependsOn:copyJsResources) << {
+  def encoding = 'utf-8'
+  def extjsBase = new File(webAppDir, 'lib/externals/ext/adapter/ext/ext-base-debug.js')
+  def extjs = new File(webAppDir, 'lib/externals/ext/ext-all-debug.js')
+
+  combinedExt.parentFile.mkdirs()
+  combinedExt.withWriter (encoding){writer ->
+    write(writer,extjsBase,encoding)
+    write(writer,extjs,encoding)
+  }
+}
+
+task(combineOpenLayersJs, dependsOn:copyJsResources) << {
+  def encoding = 'utf-8'
+  def openLayersSingleFile = new File(webAppDir, 'lib/externals/openlayers/lib/OpenLayers/SingleFile.js')
+  def openLayersFiles = lookupJsFiles(new File(webAppDir, 'lib/externals/openlayers/lib/OpenLayers.js'), encoding)
+
+  combinedOL.parentFile.mkdirs()
+  combinedOL.withWriter (encoding){writer ->
+    write(writer,openLayersSingleFile,encoding)
+    openLayersFiles.each {write(writer,it,encoding)}
+  }
+}
+task(combineGeoExtJs, dependsOn:copyJsResources) << {
+    def encoding = 'utf-8'
+    def geoextSingleFile = new File(webAppDir, 'lib/externals/geoext/lib/GeoExt/SingleFile.js')
+    def geoextFiles = lookupJsFiles(new File(webAppDir, 'lib/externals/geoext/lib/GeoExt.js'), encoding)
+
+    combinedGeoExt.parentFile.mkdirs()
+    combinedGeoExt.withWriter (encoding){writer ->
+      write(writer,geoextSingleFile,encoding)
+      geoextFiles.each {write(writer,it,encoding)}
+    }
+}
+task(combineAppJs, dependsOn:copyJsResources) << {
+    def encoding = 'utf-8'
+
+    def inputFiles = ['lib/externals/ext/examples/ux/Spinner.js',
+      'lib/externals/ext/examples/ux/SpinnerField.js',
+      'app/lib/App/cubeProperties.js',
+      'app/lib/App/messageMgr.js',
+      'app/lib/App/errorMgr.js',
+      'app/lib/App/DimensionChooser.js',
+      'app/lib/App/DimensionSelector.js',
+      'app/lib/App/MemberSelector.js',
+      'app/lib/App/MDX.js',
+      'app/lib/App/queryMgr.js',
+      'app/lib/App/main.js',
+      'app/lib/App/queryBuilder.js',
+      'app/lib/App/GetInfo.js',
+      'app/lib/App/mapStyler.js',
+      'app/lib/App/map.js',
+      'app/lib/App/report.js',
+      'lib/externals/ext/examples/ux/ColumnHeaderGroup.js',
+      'app/lib/App/DrillableGridPanel.js',
+      'app/lib/App/DrillableHeader.js',
+      'app/lib/App/DrillableColumnHeaderGroup.js',
+      'app/lib/App/Ext.ux.grid.CellActions.js',
+      'app/lib/App/table.js',
+      'app/lib/App/chart.js',
+      'lib/externals/loadingpanel/lib/OpenLayers/Control/LoadingPanel.js'
+    ]
+
+    inputFiles = inputFiles.collect {f -> new File(webAppDir, f)}
+
+    combinedApp.parentFile.mkdirs()
+    combinedApp.withWriter (encoding){writer ->
+      inputFiles.each {write(writer,it,encoding)}
+    }
+}
+
+task(extMinify,type:JavaExec, dependsOn:combineExtJs) {
+    classpath = configurations.jsMinify
+    main = 'com.yahoo.platform.yui.compressor.YUICompressor'
+    args = [combinedExt.path, '--type','js','--charset','utf-8','-o',minifiedExt.path]
+}
+task(olMinify,type:JavaExec, dependsOn:combineOpenLayersJs) {
+    classpath = configurations.jsMinify
+    main = 'com.yahoo.platform.yui.compressor.YUICompressor'
+    args = [combinedOL.path, '--type','js','--charset','utf-8','-o',minifiedOL.path]
+}
+task(geoExtMinify,type:JavaExec, dependsOn:combineGeoExtJs) {
+    classpath = configurations.jsMinify
+    main = 'com.yahoo.platform.yui.compressor.YUICompressor'
+    args = [combinedGeoExt.path, '--type','js','--charset','utf-8','-o',minifiedGeoExt.path]
+}
+task(appMinify,type:JavaExec, dependsOn:combineAppJs) {
+    classpath = configurations.jsMinify
+    main = 'com.yahoo.platform.yui.compressor.YUICompressor'
+    args = [combinedApp.path, '--type','js','--charset','utf-8','-o',minifiedApp.path]
+}
+task(copyNonMinifiedJS,dependsOn:[combineExtJs,combineOpenLayersJs,combineGeoExtJs,combineAppJs]) << {
+   minifiedExt << combinedExt.asWritable()
+   minifiedOL << combinedOL.asWritable()
+   minifiedGeoExt << combinedGeoExt.asWritable()
+   minifiedApp << combinedApp.asWritable()
+}
+
+task(jsMinify) {
+  if(System.properties['jsdebug'] != null) {
+    logger.info("using non-minified js files")
+    dependsOn  copyNonMinifiedJS
+  } else {
+    logger.info("minifying js files")
+    [extMinify,geoExtMinify,olMinify,appMinify].each {dependsOn it}
+  }
+  
+}
+

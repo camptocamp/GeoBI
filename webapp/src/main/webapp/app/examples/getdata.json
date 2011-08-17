@@ -1,0 +1,91 @@
+{
+    "metaData": {
+        "root": "rows",
+        "fields": [{
+            "name": "NUTS_NUTS LEVEL 0"
+        },
+        {
+            "name": "REGIONAL SEA BASINS&RSEA_SEA BASINS"
+        },
+        {
+            "name": "Measures_AREAHA&LAND COVER 00&CLC_00_All Land Covers 00_1 Artificial surfaces"
+        },
+        {
+            "name": "Measures_AREAHA&LAND COVER 00&CLC_00_All Land Covers 00_2 Agricultural areas"
+        },
+        {
+            "name": "Measures_AREAHA&LAND COVER 00&CLC_00_All Land Covers 00_3 Forest and semi natural areas"
+        },
+        {
+            "name": "Measures_AREAHA&LAND COVER 00&CLC_00_All Land Covers 00_4 Wetlands"
+        },
+        {
+            "name": "Measures_AREAHA&LAND COVER 00&CLC_00_All Land Covers 00_5 Water bodies"
+        }]
+    },
+    "rows": [{
+        "Measures_AREAHA&LAND COVER 00&CLC_00_All Land Covers 00_2 Agricultural areas": 1.670197E7,
+        "REGIONAL SEA BASINS&RSEA_SEA BASINS": "Atlantic Ocean",
+        "Measures_AREAHA&LAND COVER 00&CLC_00_All Land Covers 00_5 Water bodies": 229743,
+        "Measures_AREAHA&LAND COVER 00&CLC_00_All Land Covers 00_1 Artificial surfaces": 453528,
+        "NUTS_NUTS LEVEL 0": "ES ESPAÑA",
+        "Measures_AREAHA&LAND COVER 00&CLC_00_All Land Covers 00_4 Wetlands": 90443,
+        "Measures_AREAHA&LAND COVER 00&CLC_00_All Land Covers 00_3 Forest and semi natural areas": 1.4286314E7
+    },
+    {
+        "Measures_AREAHA&LAND COVER 00&CLC_00_All Land Covers 00_2 Agricultural areas": 1.1433404E7,
+        "REGIONAL SEA BASINS&RSEA_SEA BASINS": "North Sea",
+        "Measures_AREAHA&LAND COVER 00&CLC_00_All Land Covers 00_5 Water bodies": 86007,
+        "Measures_AREAHA&LAND COVER 00&CLC_00_All Land Covers 00_1 Artificial surfaces": 1108811,
+        "NUTS_NUTS LEVEL 0": "FR FRANCE",
+        "Measures_AREAHA&LAND COVER 00&CLC_00_All Land Covers 00_4 Wetlands": 151258,
+        "Measures_AREAHA&LAND COVER 00&CLC_00_All Land Covers 00_3 Forest and semi natural areas": 3661645
+    },
+    {
+        "REGIONAL SEA BASINS&RSEA_SEA BASINS": "Baltic Sea",
+        "NUTS_NUTS LEVEL 0": "ES ESPAÑA"
+    },
+    {
+        "REGIONAL SEA BASINS&RSEA_SEA BASINS": "Black Sea",
+        "NUTS_NUTS LEVEL 0": "ES ESPAÑA"
+    },
+    {
+        "Measures_AREAHA&LAND COVER 00&CLC_00_All Land Covers 00_2 Agricultural areas": 8728810,
+        "REGIONAL SEA BASINS&RSEA_SEA BASINS": "Mediterranean Sea",
+        "Measures_AREAHA&LAND COVER 00&CLC_00_All Land Covers 00_5 Water bodies": 91459,
+        "Measures_AREAHA&LAND COVER 00&CLC_00_All Land Covers 00_1 Artificial surfaces": 384907,
+        "NUTS_NUTS LEVEL 0": "ES ESPAÑA",
+        "Measures_AREAHA&LAND COVER 00&CLC_00_All Land Covers 00_4 Wetlands": 22308,
+        "Measures_AREAHA&LAND COVER 00&CLC_00_All Land Covers 00_3 Forest and semi natural areas": 9633609
+    },
+    {
+        "REGIONAL SEA BASINS&RSEA_SEA BASINS": "North Sea",
+        "NUTS_NUTS LEVEL 0": "ES ESPAÑA"
+    },
+    {
+        "Measures_AREAHA&LAND COVER 00&CLC_00_All Land Covers 00_2 Agricultural areas": 1.6983038E7,
+        "REGIONAL SEA BASINS&RSEA_SEA BASINS": "Atlantic Ocean",
+        "Measures_AREAHA&LAND COVER 00&CLC_00_All Land Covers 00_5 Water bodies": 184070,
+        "Measures_AREAHA&LAND COVER 00&CLC_00_All Land Covers 00_1 Artificial surfaces": 929919,
+        "NUTS_NUTS LEVEL 0": "FR FRANCE",
+        "Measures_AREAHA&LAND COVER 00&CLC_00_All Land Covers 00_4 Wetlands": 159366,
+        "Measures_AREAHA&LAND COVER 00&CLC_00_All Land Covers 00_3 Forest and semi natural areas": 8137219
+    },
+    {
+        "REGIONAL SEA BASINS&RSEA_SEA BASINS": "Baltic Sea",
+        "NUTS_NUTS LEVEL 0": "FR FRANCE"
+    },
+    {
+        "REGIONAL SEA BASINS&RSEA_SEA BASINS": "Black Sea",
+        "NUTS_NUTS LEVEL 0": "FR FRANCE"
+    },
+    {
+        "Measures_AREAHA&LAND COVER 00&CLC_00_All Land Covers 00_2 Agricultural areas": 4488910,
+        "REGIONAL SEA BASINS&RSEA_SEA BASINS": "Mediterranean Sea",
+        "Measures_AREAHA&LAND COVER 00&CLC_00_All Land Covers 00_5 Water bodies": 146606,
+        "Measures_AREAHA&LAND COVER 00&CLC_00_All Land Covers 00_1 Artificial surfaces": 621687,
+        "NUTS_NUTS LEVEL 0": "FR FRANCE",
+        "Measures_AREAHA&LAND COVER 00&CLC_00_All Land Covers 00_4 Wetlands": 73975,
+        "Measures_AREAHA&LAND COVER 00&CLC_00_All Land Covers 00_3 Forest and semi natural areas": 6971917
+    }]
+}

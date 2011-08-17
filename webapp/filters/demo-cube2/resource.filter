@@ -1,0 +1,8 @@
+# This file contains key-value pairs that will be used to resolve @key@ strings in the filtered resources
+
+servername=uabeea-geobi2-demo.dmz.lsn.camptocamp.com
+db-server=localhost
+db-name=geodw2v2
+cube-definition=cube-definition2.xml
+simple-cube-definition=simple-cube-definition2.xml
+cube-name=CLC90_00_06

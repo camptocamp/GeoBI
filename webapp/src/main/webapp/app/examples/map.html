@@ -1,0 +1,42 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>uabeea_geobi - Map Styler</title>
+
+    <script type="text/javascript" src="../../lib/externals/ext/adapter/ext/ext-base.js"></script>
+    <script type="text/javascript" src="../../lib/externals/ext/ext-all-debug.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="../../lib/externals/ext/resources/css/ext-all.css" />
+    <link rel="stylesheet" type="text/css" href="../../lib/externals/ext/resources/css/xtheme-gray.css" />
+    <link rel="stylesheet" type="text/css" href="../../lib/externals/ext/examples/ux/css/Spinner.css" />
+
+    <link rel="stylesheet" type="text/css" href="../css/main.css" />
+
+    <script type="text/javascript" src="../../lib/externals/ext/examples/ux/Spinner.js"></script>
+    <script type="text/javascript" src="../../lib/externals/ext/examples/ux/SpinnerField.js"></script>
+
+    <script type="text/javascript" src="../../lib/externals/openlayers/lib/OpenLayers.js"></script>
+    <script type="text/javascript" src="../../lib/externals/loadingpanel/lib/OpenLayers/Control/LoadingPanel.js"></script>
+    <script type="text/javascript" src="../../lib/externals/geoext/lib/GeoExt.js"></script>
+
+    <script type="text/javascript" src="../lib/App/cubeProperties.js"></script>
+    <script type="text/javascript" src="../lib/App/MDX.js"></script>
+    <script type="text/javascript" src="../lib/App/queryMgr.js"></script>
+    <script type="text/javascript" src="../lib/App/GetInfo.js"></script>
+    <script type="text/javascript" src="../lib/App/mapStyler.js"></script>
+    <script type="text/javascript" src="../lib/App/map.js"></script>
+    <script type="text/javascript" src="examples.js"></script>
+
+    <script type=text/javascript>
+        Ext.onReady(function() {
+
+            App.map.panel.render(Ext.getBody());
+            App.map.init();
+        });
+    </script>
+</head>
+<body>
+    <div id="queries"></div>
+</body>
+</html>

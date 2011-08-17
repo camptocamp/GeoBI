@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>uabeea_geobi - Query Builder</title>
+
+    <script type="text/javascript" src="../../lib/externals/ext/adapter/ext/ext-base.js"></script>
+    <script type="text/javascript" src="../../lib/externals/ext/ext-all-debug.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="../../lib/externals/ext/resources/css/ext-all.css" />
+    <link rel="stylesheet" type="text/css" href="../../lib/externals/ext/resources/css/xtheme-gray.css" />
+
+    <link rel="stylesheet" type="text/css" href="../css/main.css" />
+
+    <script type="text/javascript" src="../../lib/externals/openlayers/lib/OpenLayers.js"></script>
+
+    <script type="text/javascript" src="../lib/App/messageMgr.js"></script>
+    <script type="text/javascript" src="../lib/App/errorMgr.js"></script>
+    <script type="text/javascript" src="../lib/App/cubeProperties.js"></script>
+    <script type="text/javascript" src="../lib/App/DimensionChooser.js"></script>
+    <script type="text/javascript" src="../lib/App/SpatialDimensionChooser.js"></script>
+    <script type="text/javascript" src="../lib/App/ThematicDimensionChooser.js"></script>
+    <script type="text/javascript" src="../lib/App/DimensionSelector.js"></script>
+    <script type="text/javascript" src="../lib/App/ThematicDimensionSelector.js"></script>
+    <script type="text/javascript" src="../lib/App/SpatialDimensionSelector.js"></script>
+    <script type="text/javascript" src="../lib/App/GroupComboBox.js"></script>
+    <script type="text/javascript" src="../lib/App/GroupingView.js"></script>
+    <script type="text/javascript" src="../lib/App/MemberSelector.js"></script>
+    <script type="text/javascript" src="../lib/App/MDX.js"></script>
+    <script type="text/javascript" src="../lib/App/queryMgr.js"></script>
+    <script type="text/javascript" src="../lib/App/queryBuilder.js"></script>
+
+    <script type="text/javascript" src="queryBuilder.js"></script>
+
+</head>
+<body>
+    <ul>Actions sequence:
+        <li><a href="javascript:loadExistingQuery(0)">Load existing query: NUTS LEVEL 0, CLC90 LEVEL1</a></li>
+        <li><a href="javascript:drillDown(0)">Drill down by France</a></li>
+        <li><a href="javascript:loadExistingQuery(1)">Load existing query: NUTS LEVEL 1 with France Centre Est and Italia Nord Ovest, CLC90 LEVEL1</a></li>
+        <li><a href="javascript:rollUp(0)">Roll up by NUTS</a></li>
+        <li><a href="javascript:loadExistingQuery(2)">Load existing query: NUTS LEVEL 1 (All), CLC90 LEVEL1</a></li>
+        <li><a href="javascript:rollUp(0)">Roll up by NUTS</a></li>
+        <li><a href="javascript:loadExistingQuery(3)">Load existing query: Regional Sea Basins, CLC90 LEVEL2 and Changes</a></li>
+        <li><a href="javascript:drillDown(1)">Drill down by Industrial, commercial</a></li>
+        <li><a href="javascript:rollUp(1)">Roll up by LAND COVER 90</a></li>
+        <li><a href="javascript:loadExistingQuery(4)">Load existing query: Regional Sea Basins and NUTS LEVEL 1 with France Centre Est, CLC90 LEVEL2 and Changes</a></li>
+        <li><a href="javascript:loadExistingQuery(5)">Load existing query: NUTS LEVEL 1 with France Centre Est and Regional Sea Basins, CLC90 LEVEL2 and Changes</a></li>
+    </ul>
+</body>
+</html>

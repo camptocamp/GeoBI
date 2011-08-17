@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<soapenv:Envelope 
+    xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" 
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <soapenv:Body>
+    <ns1:Execute 
+        soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" 
+        xmlns:ns1="urn:schemas-microsoft-com:xml-analysis">
+        <ns1:Command>
+        <ns1:Statement 
+            xsi:type="soapenc:string" 
+            xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+           select {[Measures].[AREAHA], [Measures].[PERIOD]} ON COLUMNS,
+           Crossjoin({[NUTS].[All NUTS].[ES ESPAÑA], [NUTS].[All NUTS].[FR FRANCE]}, 
+           
+           {[biogeographic regioNS.RBIO].[All Biogeographic Regions],
+            
+             [BIOGEOGRAPHIC REGIONS.RBIO].[All Biogeographic Regions].[Atlantic],
+             [BIOGEOGRAPHIC REGIONS.RBIO].[All Biogeographic Regions].[Mediterranean]}) ON ROWS
+             from [pg_CLC90_00]
+          
+          </ns1:Statement>
+        </ns1:Command>
+        <ns1:Properties>
+        <ns1:PropertyList>
+            <ns1:DataSourceInfo 
+                xsi:type="soapenc:string" 
+                xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">Provider=Mondrian;DataSource=MondrianUab;</ns1:DataSourceInfo>
+            <ns1:Catalog 
+                xsi:type="soapenc:string" 
+                xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">uab-prod</ns1:Catalog>
+            <ns1:Format 
+                xsi:type="soapenc:string" 
+                xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">Multidimensional</ns1:Format>
+            <ns1:Content 
+                xsi:type="soapenc:string" 
+                xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">Data</ns1:Content>
+            <ns1:AxisFormat 
+                xsi:type="soapenc:string" 
+                xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">TupleFormat</ns1:AxisFormat>
+    </ns1:PropertyList>
+    </ns1:Properties>
+</ns1:Execute>
+</soapenv:Body>
+</soapenv:Envelope>

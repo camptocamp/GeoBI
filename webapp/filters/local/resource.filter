@@ -1,0 +1,6 @@
+db-server=localhost
+servername=localhost
+db-name=geodw
+cube-definition=cube-definition.xml
+simple-cube-definition=simple-cube-definition.xml
+cube-name=pg_CLC_90_00

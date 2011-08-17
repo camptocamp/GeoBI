@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Controller tests</title>
+
+    <script type="text/javascript" src="lib/externals/ext/adapter/ext/ext-base.js"></script>
+    <script type="text/javascript" src="lib/externals/ext/ext-all-debug.js"></script>
+    <script type="text/javascript" src="test/tests.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="lib/externals/ext/resources/css/ext-all.css" />
+    <link rel="stylesheet" type="text/css" href="lib/externals/ext/resources/css/xtheme-gray.css" />
+
+    <link rel="stylesheet" type="text/css" href="app/css/main.css" />
+
+</head>
+<body>
+    <h3>Predefined queries</h3>
+    <div id="predefined_queries"></div>
+
+    <h3>Query parameters</h3>
+    <div id="query"> </div>
+    <h3>Services</h3>
+    <ul>
+        <li><a href="/webbi/getcubeproperties?requestType=members&cubeName=pg_CLC90_00&dimensionUniqueName=[BIOGEOGRAPHIC%20REGIONS]" target="_blank">getcubeproperties (members)</a></li>
+        <li><a href="/webbi/getcubeproperties?requestType=measures&cubeName=pg_CLC90_00" target="_blank">getcubeproperties (measures)</a></li>
+        <li><a href="/webbi/getcubeproperties?requestType=levels&cubeName=pg_CLC90_00" target="_blank">getcubeproperties (levels)</a></li>
+        <li><a href="/webbi/getcubeproperties?requestType=dimensions&cubeName=pg_CLC90_00" target="_blank">getcubeproperties (non-spatial dimensions)</a></li>
+        <li><a href="/webbi/getcubeproperties?requestType=dimensions&cubeName=pg_CLC90_00&spatial=true" target="_blank">getcubeproperties (spatial dimensions)</a></li>
+        <li><a href="#" onclick="javascript:test.registerQuery()">register query</a></li>
+        <li><a href="#" onclick="javascript:test.getMap()">getmap</a></li>
+        <li><a href="#" onclick="javascript:test.getChart()">getchart</a></li>
+        <li><a href="#" onclick="javascript:test.getData()">getdata</a></li>
+        <li><a href="#" onclick="javascript:test.getMetadata()">getmetadata</a></li>
+        <li><a href="#" onclick="javascript:test.getInfo()">getinfo</a></li>
+        <li><a href="#" onclick="javascript:test.getMember()">getmember</a></li>
+        <li><a href="#" onclick="javascript:test.registerStyle()">register map style (choropleths)</a></li>
+        <li><a href="#" onclick="javascript:test.getStyle()">getstyle</a></li>
+        <li><a href="#" onclick="javascript:test.registerStyleAndMap()">register map style and show map</a></li>
+        <li><a href="/webbi/getoverlayicon?data=10,10,30&type=pie&width=100&height=100" target="_blank">getoverlayicon (pie)</a></li>
+        <li><a href="/webbi/getoverlayicon?data=10,10,30&type=bar&width=100&height=100" target="_blank">getoverlayicon (bar)</a></li>
+        <li><a href="#" onclick="javascript:test.print()">print</a></li>
+    </ul>
+    <br/>
+    <h1>Results</h1>
+    <div id="imgresults">
+    </div>
+    <pre>
+        <div id="results">
+        </div>
+    </pre>
+</body>
+</html>

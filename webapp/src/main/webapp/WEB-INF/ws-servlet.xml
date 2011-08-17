@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+						http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+
+    <bean id="getoverlayicon-controller" class="com.c2c.controller.GetOverlayIcon"/>
+
+    <bean id="cache" class="com.c2c.cache.BiCache"/>
+
+    <bean id="registerquery-controller" class="com.c2c.controller.RegisterQuery">
+        <property name="queryFactory" ref="query-factory"/>
+        <property name="cache" ref="cache"/>
+    </bean>
+
+    <bean id="registermapstyle-controller" class="com.c2c.controller.RegisterMapStyle">
+        <property name="queryFactory" ref="query-factory"/>
+        <property name="cache" ref="cache"/>
+    </bean>
+
+    <bean id="getmapstyle-controller" class="com.c2c.controller.GetMapStyle">
+        <property name="queryFactory" ref="query-factory"/>
+        <property name="cache" ref="cache"/>
+    </bean>
+
+    <bean id="getmap-controller" class="com.c2c.controller.GetMap">
+        <property name="queryFactory" ref="query-factory"/>
+        <property name="cache" ref="cache"/>
+    </bean>
+    
+    <bean id="getlegend-controller" class="com.c2c.controller.GetLegend">
+        <property name="queryFactory" ref="query-factory"/>
+        <property name="cache" ref="cache"/>
+    </bean>
+    
+    <bean id="getchart-controller" class="com.c2c.controller.GetChart">
+        <property name="queryFactory" ref="query-factory"/>
+        <property name="cache" ref="cache"/>
+    </bean>
+    
+    <bean id="getbaselayer-controller" class="com.c2c.controller.GetBaseLayer">
+        <property name="dbServer"   value="${db-server}"/>
+        <property name="dbName"     value="${db-name}"/>
+        <property name="dbUser"     value="${db-user}"/>
+        <property name="dbPassword" value="${db-pass}"/>
+        <property name="cache" ref="cache"/>
+    </bean>
+    <bean id="getinfo-controller" class="com.c2c.controller.GetInfo">
+        <property name="queryFactory" ref="query-factory"/>
+        <property name="cache" ref="cache"/>
+    </bean>
+    <bean id="getmember-controller" class="com.c2c.controller.GetMember">
+        <property name="queryFactory" ref="query-factory"/>
+        <property name="cache" ref="cache"/>
+    </bean>
+    <bean id="getreport-controller" class="com.c2c.controller.GetReport">
+        <property name="queryFactory" ref="query-factory"/>
+        <property name="cache" ref="cache"/>
+    </bean>
+    <bean id="getmetadata-controller" class="com.c2c.controller.GetMetadata">
+        <property name="queryFactory" ref="query-factory"/>
+        <property name="cache" ref="cache"/>
+    </bean>
+
+    <bean id="getdata-controller" class="com.c2c.controller.GetData">
+        <property name="queryFactory" ref="query-factory"/>
+        <property name="cache" ref="cache"/>
+    </bean>
+
+    <bean id="getcubeproperties-controller" class="com.c2c.controller.GetCubeProperties">
+        <property name="queryFactory" ref="query-factory"/>
+        <property name="cache" ref="cache"/>
+    </bean>
+
+    <bean id="query-factory" class="com.c2c.query.QueryFactory">
+        <constructor-arg value="jdbc:mondrian:Jdbc=jdbc:postgresql_postGIS://${db-server}:${db-port}/${db-name}?user=${db-user}&amp;password=${db-pass}"/>
+        <constructor-arg value="${cube-definition}"/>
+        <constructor-arg value="${simple-cube-definition}"/>
+    </bean>
+
+    <!-- Substitutes any ${...} variables in this (and loaded) spring configuration file
+          with values from the properties file -->
+    <bean id="properties-loader"
+          class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"
+          p:locations="/WEB-INF/ws-servlet.properties"/>
+
+    <!-- Message source for loading localized strings -->
+    <bean id="messageSource"
+          class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+        <property name="basename"
+                  value="messages"/>
+    </bean>
+</beans>
+

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<soapenv:Envelope 
+    xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" 
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+    xmlns="urn:schemas-microsoft-com:xml-analysis"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <soapenv:Body>
+    <Discover 
+        soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" >
+        <RequestType xsi:type="xsd:string">DBSCHEMA_CATALOGS</RequestType>
+        <Restrictions >
+            <RestrictionList/>
+        </Restrictions>
+        <Properties>
+        <PropertyList>
+            <DataSourceInfo 
+                xsi:type="soapenc:string" 
+                xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">Provider=Mondrian;DataSource=MondrianUab;</DataSourceInfo>
+        </PropertyList>
+    </Properties>
+    </Discover>
+    </soapenv:Body>
+</soapenv:Envelope>
+

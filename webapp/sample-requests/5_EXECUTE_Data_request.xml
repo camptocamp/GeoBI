@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<soapenv:Envelope 
+    xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" 
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <soapenv:Body>
+    <ns1:Execute 
+        soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" 
+        xmlns:ns1="urn:schemas-microsoft-com:xml-analysis">
+        <ns1:Command>
+        <ns1:Statement 
+            xsi:type="soapenc:string" 
+            xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+select NON EMPTY Crossjoin({[Measures].[AREAHA]}, Crossjoin({[LAND COVER 00.CLC_00].[All Land Covers 00].[1 Artificial surfaces], [LAND COVER 00.CLC_00].[All Land Covers 00].[2 Agricultural areas]}, {[CHANGES 90-00.CHANGES].[All changes].[Changes], [CHANGES 90-00.CHANGES].[All changes].[No changes]})) ON COLUMNS, NON EMPTY Union(Crossjoin({[NUTS].[All NUTS].[FR FRANCE].[FR7 CENTRE-EST].[FR71 Rhône-Alpes].[FR716 Rhône]}, {[REGIONAL SEA BASINS.RSEA].[All Regional Sea Basins].[Atlantic Ocean], [REGIONAL SEA BASINS.RSEA].[All Regional Sea Basins].[Mediterranean Sea]}), {([NUTS].[All NUTS].[FR FRANCE].[FR7 CENTRE-EST].[FR71 Rhône-Alpes].[FR717 Savoie], [REGIONAL SEA BASINS.RSEA].[All Regional Sea Basins].[Mediterranean Sea])}) ON ROWS from [pg_CLC90_00]
+          </ns1:Statement>
+        </ns1:Command>
+        <ns1:Properties>
+        <ns1:PropertyList>
+            <ns1:DataSourceInfo 
+                xsi:type="soapenc:string" 
+                xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">Provider=Mondrian;DataSource=MondrianUab;</ns1:DataSourceInfo>
+            <ns1:Catalog 
+                xsi:type="soapenc:string" 
+                xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">uab-prod</ns1:Catalog>
+            <ns1:Format 
+                xsi:type="soapenc:string" 
+                xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">Multidimensional</ns1:Format>
+            <ns1:Content 
+                xsi:type="soapenc:string" 
+                xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">Data</ns1:Content>
+            <ns1:AxisFormat 
+                xsi:type="soapenc:string" 
+                xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">TupleFormat</ns1:AxisFormat>
+    </ns1:PropertyList>
+    </ns1:Properties>
+</ns1:Execute>
+</soapenv:Body>
+</soapenv:Envelope>

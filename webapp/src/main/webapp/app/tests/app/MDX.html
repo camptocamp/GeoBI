@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html debug="true">
+  <head>
+    <script type="text/javascript" src="../../../lib/externals/openlayers/lib/OpenLayers.js"></script>
+    <script type="text/javascript" src="../../../lib/externals/ext/adapter/ext/ext-base.js"></script>
+    <script type="text/javascript" src="../../../lib/externals/ext/ext-all-debug.js"></script>
+
+    <script type="text/javascript" src="../../lib/App/MDX.js"></script>
+
+    <script type="text/javascript">
+    function test_mdx_write(t) {
+        t.plan(10);
+
+        var mdx = new App.MDX();
+        var obj, string;
+
+        // 1 col with members, 1 row with members
+        obj = {
+            cube: {name: '[Sales]'},
+            cols: [{
+                dimension: '[Measures]',
+                members: [
+                    '[Measures].[Unit Sales]',
+                    '[Measures].[Store Cost]',
+                    '[Measures].[Store Sales]'
+                ]
+            }],
+            rows: [{
+                dimension: '[Customers]',
+                members: [
+                    '[Customers].[All Customers].[USA].[CA].[Altadena]',
+                    '[Customers].[All Customers].[USA].[CA].[Arcadia]'
+                ]
+            }]
+        };
+        string = mdx.write(obj);
+        t.eq(string, 'SELECT {[Measures].[Unit Sales], [Measures].[Store Cost], [Measures].[Store Sales]} ON COLUMNS, {[Customers].[All Customers].[USA].[CA].[Altadena], [Customers].[All Customers].[USA].[CA].[Arcadia]} ON ROWS FROM [Sales]',
+            'OK');
+
+        // 1 col with members, 2 rows with one member for each
+        obj = {
+            cube: {name: '[Sales]'},
+            cols: [{
+                dimension: '[Measures]',
+                members: [
+                    '[Measures].[Unit Sales]',
+                    '[Measures].[Store Cost]',
+                    '[Measures].[Store Sales]'
+                ]
+            }],
+            rows: [{
+                dimension: '[Measures]',
+                members: [
+                    '[Customers].[All Customers].[USA].[CA].[Altadena]'
+                ]
+            }, {
+                dimension: '[Product]',
+                members: [
+                    '[Product].[All Products]'
+                ]
+            }]
+        };
+        string = mdx.write(obj);
+        t.eq(string, 'SELECT {[Measures].[Unit Sales], [Measures].[Store Cost], [Measures].[Store Sales]} ON COLUMNS, {([Customers].[All Customers].[USA].[CA].[Altadena], [Product].[All Products])} ON ROWS FROM [Sales]',
+            'OK');
+
+        // 1 col with members, 2 rows with several members
+        obj = {
+            cube: {name: '[Sales]'},
+            cols: [{
+                dimension: '[Measures]',
+                members: [
+                    '[Measures].[Unit Sales]',
+                    '[Measures].[Store Cost]',
+                    '[Measures].[Store Sales]'
+                ]
+            }],
+            rows: [{
+                dimension: '[Customers]',
+                members: [
+                    '[Customers].[All Customers].[USA].[CA].[Altadena]',
+                    '[Customers].[All Customers].[USA].[CA].[Arcadia]'
+                ]
+            }, {
+                dimension: '[Product]',
+                members: [
+                    '[Product].[All Products]'
+                ]
+            }]
+        };
+        string = mdx.write(obj);
+        t.eq(string, 'SELECT {[Measures].[Unit Sales], [Measures].[Store Cost], [Measures].[Store Sales]} ON COLUMNS, CROSSJOIN({[Customers].[All Customers].[USA].[CA].[Altadena], [Customers].[All Customers].[USA].[CA].[Arcadia]}, {[Product].[All Products]}) ON ROWS FROM [Sales]',
+            'OK');
+        
+        // 1 col with members, 3 rows with several members
+        obj = {
+            cube: {name: '[Sales]'},
+            cols: [{
+                dimension: '[Measures]',
+                members: [
+                    '[Measures].[Unit Sales]',
+                    '[Measures].[Store Cost]',
+                    '[Measures].[Store Sales]'
+                ]
+            }],
+            rows: [{
+                dimension: '[Customers]',
+                members: [
+                    '[Customers].[All Customers].[USA].[CA].[Altadena]',
+                    '[Customers].[All Customers].[USA].[CA].[Arcadia]'
+                ]
+            }, {
+                dimension: '[Promotions]',
+                members: [
+                    '[Promotions].[All Promotions]'
+                ]
+            }, {
+                dimension: '[Product]',
+                members: [
+                    '[Product].[All Products]'
+                ]
+            }]
+        };
+        string = mdx.write(obj);
+        t.eq(string, 'SELECT {[Measures].[Unit Sales], [Measures].[Store Cost], [Measures].[Store Sales]} ON COLUMNS, CROSSJOIN({[Customers].[All Customers].[USA].[CA].[Altadena], [Customers].[All Customers].[USA].[CA].[Arcadia]}, {([Promotions].[All Promotions], [Product].[All Products])}) ON ROWS FROM [Sales]',
+            'OK');
+
+        // 1 col with members, 1 row with no member
+        obj = {
+            cube: {name: '[Sales]'},
+            cols: [{
+                dimension: '[Measures]',
+                members: [
+                    '[Measures].[Unit Sales]',
+                    '[Measures].[Store Cost]',
+                    '[Measures].[Store Sales]'
+                ]
+            }],
+            rows: [{
+                level: '[Product].[Product Family]'
+            }]
+        };
+        string = mdx.write(obj);
+        t.eq(string, 'SELECT {[Measures].[Unit Sales], [Measures].[Store Cost], [Measures].[Store Sales]} ON COLUMNS, {[Product].[Product Family].Members} ON ROWS FROM [Sales]',
+            'OK');
+
+        // 1 col with members, 2 rows one of which has no member
+        obj = {
+            cube: {name: '[Sales]'},
+            cols: [{
+                dimension: '[Measures]',
+                members: [
+                    '[Measures].[Unit Sales]',
+                    '[Measures].[Store Cost]',
+                    '[Measures].[Store Sales]'
+                ]
+            }],
+            rows: [{
+                dimension: '[Customers]',
+                members: [
+                    '[Customers].[All Customers].[USA].[CA].[Altadena]',
+                    '[Customers].[All Customers].[USA].[CA].[Arcadia]'
+                ]
+            }, {
+                level: '[Product].[Product Family]'
+            }]
+        };
+        string = mdx.write(obj);
+        t.eq(string, 'SELECT {[Measures].[Unit Sales], [Measures].[Store Cost], [Measures].[Store Sales]} ON COLUMNS, CROSSJOIN({[Customers].[All Customers].[USA].[CA].[Altadena], [Customers].[All Customers].[USA].[CA].[Arcadia]}, {[Product].[Product Family].Members}) ON ROWS FROM [Sales]',
+            'OK');
+
+
+        // relative values
+        obj = {
+            cube: {name: 'cube'},
+            relative: true,
+            cols: [{
+                dimension: 'measure',
+                members: ['area']
+            },{
+                dimension: 'foo',
+                members: [
+                    'foo1',
+                    'foo2'
+                ],
+                allMember: 'foo_all'
+            }],
+            rows: [{
+                dimension: 'bar',
+                members: [
+                    'bar1',
+                    'bar2'
+                ]
+            }]
+        };
+        string = mdx.write(obj);
+        t.eq(string, "WITH MEMBER foo1.[%] AS '(100.0 * foo1 / foo_all)' MEMBER foo2.[%] AS '(100.0 * foo2 / foo_all)' SELECT CROSSJOIN({area}, {foo_all, foo1, foo1.[%], foo2, foo2.[%]}) ON COLUMNS, {bar1, bar2} ON ROWS FROM cube", 'OK');
+
+        // drill down
+        obj = {
+            cube: {name: 'cube'},
+            cols: [{
+                dimension: 'measure',
+                members: ['area']
+            },{
+                drilldown: 'foo1'
+            }],
+            rows: [{
+                level: 'bar'
+            }]
+        };
+        string = mdx.write(obj);
+        t.eq(string, "SELECT CROSSJOIN({area}, {foo1.Children}) ON COLUMNS, {bar.Members} ON ROWS FROM cube", 'OK');
+
+        // roll up 
+        obj = {
+            cube: {name: 'cube'},
+            cols: [{
+                dimension: 'measure',
+                members: ['area']
+            },{
+                rollup: true,
+                members: ['foo1', 'foo2']
+            }],
+            rows: [{
+                level: 'bar'
+            }]
+        };
+        string = mdx.write(obj);
+        t.eq(string, "SELECT CROSSJOIN({area}, UNION(foo1.Children, foo2.Children)) ON COLUMNS, {bar.Members} ON ROWS FROM cube", 'OK');
+
+        obj = {
+            cube: {name: 'cube'},
+            cols: [{
+                dimension: 'measure',
+                members: ['area']
+            },{
+                dimension: 'foo',
+                members: ['foo1']
+            },{
+                dimension: 'dude',
+                members: ['dude']
+            }],
+            rows: [{
+                level: 'bar'
+            }]
+        }
+        string = mdx.write(obj);
+        t.eq(string, "SELECT CROSSJOIN({area}, {(foo1, dude)}) ON COLUMNS, {bar.Members} ON ROWS FROM cube", 'OK');
+    }
+    </script>
+  </head>
+
+  <body>
+  </body>
+</html>

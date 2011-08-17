@@ -1,0 +1,175 @@
+html body {
+    font: 12px tahoma,arial,helvetica,sans-serif;
+    background-color: #FFFFFF;
+
+}
+
+#logo {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.x-combo-list-group {
+    font-weight: bold;
+}
+
+.x-combo-list-item {
+    margin-left: 2px;
+}
+.members-list {
+    font-size: 10px;
+    color: #555;
+    font-style: italic;
+    border-bottom: 1px solid #ddd;
+}
+
+.add {
+    background-image: url(../images/add.gif) !important;
+}
+.delete {
+    background-image: url(../images/delete.gif) !important;
+}
+.edit {
+    background-image: url(../images/pencil.gif) !important;
+}
+.execute {
+    background-image: url(../images/cog_go.gif) !important;
+}
+.script_code {
+    background-image: url(../images/script_code.gif) !important;
+}
+.style {
+    background-image: url(../images/palette.gif) !important;
+}
+.legend {
+    background-image: url(../images/world_link.png) !important;
+}
+.loading {
+    background-image: url(../images/loading.gif) !important;
+}
+.plus {
+    background-image: url(../images/list-add.png) !important;
+}
+.minus {
+    background-image: url(../images/list-remove.png) !important;
+}
+.pdf {
+    background-image: url(../images/pdf.gif) !important;
+}
+
+.x-toolbar-no-style {
+    background-color: inherit;
+    background-image: none;
+    border: 0;
+}
+
+.x-box .x-btn-tl, .x-box .x-btn-tr, .x-box .x-btn-tc, .x-box .x-btn-ml, .x-box .x-btn-mr, .x-box .x-btn-mc, .x-box .x-btn-bl, .x-box .x-btn-br, .x-box .x-btn-bc {
+    background-image: none;
+}
+.x-btn-arrow-collapse em {
+    padding-right: 10px;
+    background: url(../images/arrow-up.gif) no-repeat scroll right center transparent;
+}
+.x-btn-arrow-expand em {
+    padding-right: 10px;
+    background: url(../images/arrow-down.gif) no-repeat scroll right center transparent;
+}
+.x-btn-no-top .x-btn-tl {
+    background-position: 0 -24px;
+}
+.x-btn-no-top .x-btn-tc {
+    background-position: 0 -1096px;
+}
+.x-btn-no-top .x-btn-tr {
+    background-position: -3px -24px;
+}
+
+.ux-cell-value {
+  position:relative;
+  zoom:1;
+}
+.ux-cell-actions {
+  position:absolute;
+  right:0;
+  top:-2px;
+}
+.ux-cell-actions-left {
+  left:0;
+  top:-2px;
+}
+.ux-cell-action {
+  float:left;
+  cursor:pointer;
+  margin: 0 0 0 4px;
+}
+.ux-cell-actions-left .ux-cell-action {
+  margin: 0 4px 0 0;
+}
+
+.roll-up {
+    background-image: url(../../lib/externals/ext/resources/images/default/grid/col-move-bottom.gif) !important;
+}
+
+.icon-drill-down {
+    cursor:pointer;
+    width: 9px;
+    height: 9px;
+    background-image: url(../../lib/externals/ext/resources/images/default/grid/col-move-top.gif);
+}
+
+.icon-roll-up {
+    cursor:pointer;
+    width: 9px;
+    height: 9px;
+    background-image: url(../../lib/externals/ext/resources/images/default/grid/col-move-bottom.gif);
+}
+
+/* messageMgr */
+.msg .x-box-mc {
+    font-size:14px;
+}
+#msg-div {
+    position:absolute;
+    left:35%;
+    top:10px;
+    width:250px;
+    z-index:20000;
+}
+
+.olPopup h2 {
+    font-size: 1.2em;
+}
+.olPopup table th {
+    font-weight: bold;
+}
+.olPopup table td {
+    text-align: right;
+}
+
+.olControlLoadingPanel {
+    background-image:url(../images/loading_big.gif);
+    left: 50%;
+    top: 50%;
+    position: relative;
+    width: 54px;
+    height: 55px;
+    background-position:center;
+    background-repeat:no-repeat;
+    display: none;
+}
+
+.map-left-tbar {
+    position: absolute;
+    top: 4px;
+    left: 4px;
+}
+.map-left-tbar .x-btn {
+    float: left;
+    margin-right: 4px;
+}
+
+.drillinfo {
+    color: #555;
+    font-style: italic;
+    border-top: 1px solid #ddd;
+}

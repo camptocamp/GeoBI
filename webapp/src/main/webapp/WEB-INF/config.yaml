@@ -1,0 +1,172 @@
+#===========================================================================
+# allowed DPIs
+#===========================================================================
+dpis:
+  - 254
+
+#===========================================================================
+# the allowed scales
+#===========================================================================
+scales:
+  - 25000
+  - 50000
+  - 100000
+  - 200000
+  - 500000
+  - 1000000
+  - 2000000
+  - 4000000
+  - 8000000
+  - 16000000
+  - 32000000
+  - 64000000
+  - 128000000
+  - 256000000
+
+#===========================================================================
+# the list of allowed hosts
+#===========================================================================
+hosts:
+  - !localMatch
+    dummy: true
+  - !dnsMatch
+    host: localhost
+    port: 8080
+  - !dnsMatch
+    host: uabeea-geobi.demo-camptocamp.com
+    port: 80
+  - !dnsMatch
+    host: uabeea-geobi-demp.dmz.lsn.camptocamp.com
+    port: 80
+
+
+
+
+layouts:
+
+  #===========================================================================
+  A4:
+  #===========================================================================
+    mainPage:
+      pageSize: A4
+      landscape: true
+      header:
+        height: 50
+        items:
+          - !text
+            font: Helvetica
+            fontSize: 30
+            align: center
+            text: '${mapTitle}'
+      items:
+        - !table
+          absoluteX: 580
+          absoluteY: 525
+          width: 250
+          backgroundColor: #FFFFFF
+          items:
+            - !image
+              align: center
+              url: '${urlLegend}'
+              maxWidth: 250
+              maxHeight: 800
+        - !map
+          width: 500
+          height: 400
+          align: left
+          absoluteX: 30
+          absoluteY: 500
+        - !text
+          text: '${comment}'
+          spacingAfter: 300
+        - !image
+          align: center
+          url: '${urlChart}'
+          maxWidth: 700
+        - !pivottable
+          borderWidth: 1
+          tableConfig: &config
+            borderWidth: 1
+            cells:
+              - borderWidthBottom: 0.5
+                borderWidthLeft: 0.5
+                padding: 2
+              - row: 0
+                borderWidthBottom: 1
+                backgroundColor: #EEEEEE
+                align: center                    
+      footer:
+        height: 30
+        items:
+          - !columns
+            items:
+              - !text
+                align: left
+                text: © UABEEA GeoBI
+              - !text
+                align: right
+                text: '${pageNum} / ${pageTot}'
+
+
+  #===========================================================================
+  A3:
+  #===========================================================================
+    mainPage:
+      pageSize: A3
+      landscape: true
+      header:
+        height: 50
+        items:
+          - !text
+            font: Helvetica
+            fontSize: 30
+            align: center
+            text: '${mapTitle}'
+      items:
+        - !table
+          absoluteX: 850
+          absoluteY: 760
+          width: 250
+          backgroundColor: #FFFFFF
+          items:
+            - !image
+              align: center
+              url: '${urlLegend}'
+              maxWidth: 250
+              maxHeight: 800
+        - !map
+          width: 800
+          height: 500
+          align: left
+          absoluteX: 30
+          absoluteY: 750
+        - !text
+          text: '${comment}'
+          spacingAfter: 600
+        - !image
+          align: center
+          url: '${urlChart}'
+          maxWidth: 700
+        - !pivottable
+          borderWidth: 1
+          tableConfig: &config
+            borderWidth: 1
+            cells:
+              - borderWidthBottom: 0.5
+                borderWidthLeft: 0.5
+                padding: 2
+              - row: 0
+                borderWidthBottom: 1
+                backgroundColor: #EEEEEE
+                align: center          
+      footer:
+        height: 30
+        items:
+          - !columns
+            items:
+              - !text
+                align: left
+                text: © UABEEA GeoBI
+              - !text
+                align: right
+                text: '${pageNum} / ${pageTot}'

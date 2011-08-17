@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<soapenv:Envelope 
+    xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" 
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns="urn:schemas-microsoft-com:xml-analysis"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <soapenv:Body>
+    <ns1:Discover 
+        soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" 
+        xmlns:ns1="urn:schemas-microsoft-com:xml-analysis">
+        <RequestType xsi:type="xsd:string">MDSCHEMA_MEMBERS</RequestType>
+        <Restrictions>
+            <RestrictionList>
+                <ns1:CATALOG_NAME 
+                    xsi:type="soapenc:string" 
+                    xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">uab-prod</ns1:CATALOG_NAME>
+                <ns1:CUBE_NAME 
+                    xsi:type="soapenc:string" 
+                    xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">pg_CLC90_00</ns1:CUBE_NAME>
+                  <ns1:DIMENSION_UNIQUE_NAME 
+                    xsi:type="soapenc:string" 
+                    xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">[LAND COVER 00 LEAC]</ns1:DIMENSION_UNIQUE_NAME>
+            </RestrictionList>
+        </Restrictions>
+        <Properties>
+        <PropertyList>
+        <ns1:DataSourceInfo 
+            xsi:type="soapenc:string" 
+            xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">Provider=Mondrian;DataSource=MondrianUab;</ns1:DataSourceInfo>
+        <ns1:Catalog 
+            xsi:type="soapenc:string" 
+            xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">uab-prod</ns1:Catalog>
+        <Format xsi:type="soapenc:string" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">Tabular</Format>
+        <Content 
+            xsi:type="soapenc:string" 
+            xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">SchemaData</Content>
+    </PropertyList>
+    </Properties>
+</ns1:Discover>
+</soapenv:Body>
+</soapenv:Envelope>
+
