@@ -1,0 +1,156 @@
+.. _print_protocol:
+
+Protocol
+********
+
+Four commands are available and are documented in the next sections.
+
+Every command uses the HTTP status code to notify errors.
+
+info.json
+---------
+
+HTTP command::
+
+  GET {PRINT_URL}/info.json?url={PRINT_URL}%2Finfo.json&var=printConfig
+
+Returns a JSON structure as such:
+
+.. code-block:: javascript
+
+    var printConfig = {
+        "scales":[
+            {"name":"25000"},
+            {"name":"50000"},
+            {"name":"100000"}
+        ],
+        "dpis":[
+            {"name":"190"},
+            {"name":"254"}
+        ],
+        "outputFormats":[
+            {"name":"pdf"},
+            {"name":"png"}
+        ],
+        "layouts":[
+            {
+                "name":"A4 portrait",
+                "map":{
+                    "width":440,
+                    "height":483
+                }
+            }
+        ],
+        "printURL":"http:\/\/localhost:5000\/print\/print.pdf",
+        "createURL":"http:\/\/localhost:5000\/print\/create.json"
+    }
+
+This can be loaded through an HTML script tag like that::
+
+  <script type="text/javascript"
+        src="http://localhost:5000/print/info.json?var=printConfig"></script>
+
+or through an AJAX request, in this case the ``var`` query parameter will be
+omitted.
+
+The "url" query parameter is here to help the print servlet to know what URL is used by the browser to access the servlet. This parameter is here because the servlet can be behind a proxy, hiding the real URL.
+
+print.pdf
+---------
+
+HTTP command::
+
+  GET {PRINT_URL}/print.pdf?spec={SPEC}
+
+The "SPEC" parameter is a JSON structure like that:
+
+.. code-block:: javascript
+
+    {
+        layout: 'A4 portrait',
+        ...CUSTOM_PARAMS...
+        srs: 'EPSG:4326',
+        units: 'degrees',
+        geodetic: false,
+        outputFilename: 'political-boundaries',
+        outputFormat: 'pdf',
+        layers: [
+            {
+                type: 'WMS',
+                layers: ['basic'],
+                baseURL: 'http://labs.metacarta.com/wms/vmap0',
+                format: 'image/jpeg'
+            }
+        ],
+        pages: [
+            {
+                center: [6, 45.5],
+                scale: 4000000,
+                dpi: 190,
+                geodetic: false,
+                ...CUSTOM_PARAMS...
+            }
+        ]
+    }
+
+The location to show on the map can be specified with a **center** and a **scale** as show or with a **bbox** like that::
+
+   bbox: [5, 45, 6, 46]
+
+The print module will use the nearest scale and will make sure the aspect ratio stays correct.
+
+The geodetic parameter can be set to true so the scale of geodetic layers can correctly be calculated.  Certain projections (Google and Latlong for example) are based on a spheroid and therefore require **geodetic: true** in order to correctly calculate the scale.  If the geodetic parameter is not present it will be assumed to be false.
+
+The outputFilename parameter is optional and if omitted the values used in the server's configuration will be used instead.  If it is present it will be the name of the downloaded file.  The suffix will be added if not left off in the parameter.
+
+The outputFormat parameter is optional and if omitted the value 'pdf' will be used.  Only the formats returned in the info are permitted.
+
+There are two locations where custom parameters can be added. Those will be ignored by the web service but, will be accessible from the layout templates.
+
+For the format of the **layers** section, please look at the implementations pointed by mapfish.PrintProtocol.SUPPORTED_TYPES.
+
+This command returns the PDF file directly.
+
+create.json
+-----------
+
+HTTP command::
+
+  POST {PRINT_URL}/create.json?url={PRINT_URL}%2Fcreate.json
+
+The spec defined in the "print.pdf" command must be included in the POST body.
+
+Returns a JSON structure like that:
+
+.. code-block:: javascript
+
+    {
+        getURL: 'http:\/\/localhost:5000\/print\/56723.pdf'
+    }
+
+The URL returned can be used to retrieve the PDF file. See the next section.
+
+{ID}.pdf
+--------
+This command's URL is returned by the "create.json" command.
+
+HTTP command::
+
+  GET {PRINT_URL}/{ID}.pdf
+
+Returns the PDF. Can be called only during a limited time since the server side temporary file is deleted afterwards.
+
+Custom Params
+*************
+Google
+------
+The google map reader has several custom parameters that can be added to the request in summary they are:
+* maptype (Required) - type of map to display: http://code.google.com/apis/maps/documentation/staticmaps/#MapTypes
+* sensor  (Optional) - specifies whether the application requesting the static map is using a sensor to determine the user's location
+* language (Optional) - language of labels.
+* markers (Optional) - add markers to the map: http://code.google.com/apis/maps/documentation/staticmaps/#Markers
+  .. code-block:: javascript
+    markers: ['color:blue|label:S|46.5195933305192,6.566684726913701']
+* path (Optional) - add a path to the map: http://code.google.com/apis/maps/documentation/staticmaps/#Paths
+  .. code-block:: javascript
+    path: 'color:0x0000ff|weight:5|46.5095933305192,6.506684726913701|46.5195933305192,6.526684726913701|46.5395933305192,6.536684726913701|46.5695933305192,6.576684726913701',
