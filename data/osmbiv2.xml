@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Schema name="public">
+   
+    <!-- Shared dimensions (i.e. thematic dimensions) -->
+
+         <Dimension name="Sources OpenStreetMap France">
+            <Hierarchy name="Source types OSM-FR" hasAll="true" allMemberName="All sources" primaryKey="sourcetype_id" primaryKeyTable="osmbi_fr_sourcetype">
+                <Table name="osmbi_fr_sourcetype"/>
+                <Level name="Source types OSM-FR" table="osmbi_fr_sourcetype" column="sourcetype_value" uniqueMembers="true"/>
+            </Hierarchy>
+        </Dimension>
+
+         <Dimension name="spatial types of objects OpenStreetMap France">
+            <Hierarchy name="spatial types of objects OSM-FR" hasAll="true" allMemberName="All spatial types" primaryKey="spatialtype_id" primaryKeyTable="osmbi_fr_spatialtype">
+                <Table name="osmbi_fr_spatialtype"/>
+                <Level name="spatial types of OSM-FR" table="osmbi_fr_spatialtype" column="spatialtype_value" uniqueMembers="true"/>
+            </Hierarchy>
+        </Dimension>
+
+
+
+
+    <!-- Here starts the definition of the cubes -->
+
+    <Cube name="pg_CLC90_00" enabled="true">
+        <Table name="osmbi_fr_sources" />
+
+
+      <!-- spatial dimension -->
+	<!-- This one was definitely too memory-consuming ...
+
+        <Dimension name="French administrative boundaries" foreignKey="commune_id">
+            <Hierarchy name="French administrative boundaries" hasAll="true" allMemberName="All administrative boundaries" primaryKey="commune_id" primaryKeyTable="osmbi_fr_communes">
+               <Join leftKey="departement_id" rightAlias="osmbi_fr_departements" rightKey="departement_id">
+                  <Table name="osmbi_fr_communes"/>
+                  <Join leftKey="region_id" rightKey="region_id">
+                                <Table name="osmbi_fr_departements"/>
+                                <Table name="osmbi_fr_regions"/>
+                  </Join>
+		</Join>
+		<Level name="Communes" table="osmbi_fr_communes" column="commune_name" uniqueMembers="true">
+		  <Property name="geom" column="way" type="Geometry" />
+		</Level>
+		<Level name="Departements" table="osmbi_fr_departements" column="departement_name" uniqueMembers="true">
+		  <Property name="geom" column="way" type="Geometry" />
+		</Level>
+		<Level name="Regions" table="osmbi_fr_regions" column="region_name" uniqueMembers="true">
+		  <Property name="geom" column="way" type="Geometry" />
+		</Level>
+	   </Hierarchy>
+        </Dimension>
+-->
+	<!-- let's try with this one -->
+
+        <Dimension name="French administrative boundaries" foreignKey="departement_id">
+            <Hierarchy name="French administrative boundaries" hasAll="true" allMemberName="All administrative boundaries" primaryKey="departement_id" primaryKeyTable="osmbi_fr_departements">
+                  <Join leftKey="region_id" rightAlias="osmbi_fr_regions" rightKey="region_id">
+                                <Table name="osmbi_fr_departements"/>
+                                <Table name="osmbi_fr_regions"/>
+		  </Join>
+		<Level name="Regions" table="osmbi_fr_regions" column="region_name" uniqueMembers="false">
+		    <Property name="geom" column="way" type="Geometry" />
+		</Level>
+	  	  <Level name="Departements" table="osmbi_fr_departements" column="departement_name" uniqueMembers="true">
+		    <Property name="geom" column="way" type="Geometry" />
+		  </Level>
+   	     </Hierarchy>
+        </Dimension>
+
+
+
+        <!-- Add the shared (i.e. thematic) dimensions to the cube -->
+	<DimensionUsage name="Sources OpenStreetMap France" source="Sources OpenStreetMap France" foreignKey="sourcetype_id" />
+	<DimensionUsage name="spatial types of objects OpenStreetMap France" source="spatial types of objects OpenStreetMap France" foreignKey="spatialtype_id" />
+
+	<!-- Definition of measures and calculated members -->
+        <Measure name="objects count" column="count" aggregator="sum" datatype="Numeric" formatString="#,###"/>
+
+        <Measure name="objects count / area" aggregator="avg" datatype="Numeric" formatString="#,###">
+	    <MeasureExpression>
+		<SQL dialect="generic">
+		  count / ((SELECT ST_Area(way) FROM osmbi_fr_departements WHERE departement_id = osmbi_fr_sources.departement_id) / 1000000)
+		</SQL>
+	    </MeasureExpression>
+	</Measure>
+
+
+    </Cube>
+
+    <!-- Add support for geo-analytical operators brought by GeoMondrian -->
+    <UserDefinedFunction name="ST_Contains" className="mondrian.udf.geo.STContainsUdf" />
+    <UserDefinedFunction name="ST_Crosses" className="mondrian.udf.geo.STCrossesUdf" />
+    <UserDefinedFunction name="ST_Disjoint" className="mondrian.udf.geo.STDisjointUdf" />
+    <UserDefinedFunction name="ST_Equals" className="mondrian.udf.geo.STEqualsUdf" />
+    <UserDefinedFunction name="ST_Intersects" className="mondrian.udf.geo.STIntersectsUdf" />
+    <UserDefinedFunction name="ST_Overlaps" className="mondrian.udf.geo.STOverlapsUdf" />
+    <UserDefinedFunction name="ST_Touches" className="mondrian.udf.geo.STTouchesUdf" />
+    <UserDefinedFunction name="ST_Within" className="mondrian.udf.geo.STWithinUdf" />
+    <UserDefinedFunction name="ST_Relate" className="mondrian.udf.geo.STRelateUdf" />
+    <UserDefinedFunction name="ST_Distance" className="mondrian.udf.geo.STDistanceUdf" />
+    <UserDefinedFunction name="ST_GeomFromText" className="mondrian.udf.geo.STGeomFromTextUdf" />
+    <UserDefinedFunction name="ST_UnionAgg" className="mondrian.udf.geo.STUnionAggUdf" />
+
+</Schema>
