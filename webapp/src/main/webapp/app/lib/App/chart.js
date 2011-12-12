@@ -148,7 +148,7 @@ App.chart = function() {
             height: size.height - 2,
             type: type
         };
-        return '/webbi/getchart?' + Ext.urlEncode(params);
+        return './getchart?' + Ext.urlEncode(params);
     };
 
     var loadIndicators = function() {

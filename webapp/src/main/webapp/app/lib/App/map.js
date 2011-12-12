@@ -56,7 +56,7 @@ App.map = function() {
         if (!layer) {
             layer = new OpenLayers.Layer.WMS(
                 layer,
-                "/webbi/getmap",
+                "./getmap",
                 {
                     queryId: App.queryId,
                     styleId: id,
@@ -81,7 +81,7 @@ App.map = function() {
     var addControls = function() {
         getInfoControl = new App.GetInfo({
             protocol: new OpenLayers.Protocol.HTTP({
-                url: "/webbi/getinfo",
+                url: "./getinfo",
                 format: new OpenLayers.Format.GeoJSON(),
                 params: {
                     queryId: null,
@@ -187,6 +187,9 @@ App.map = function() {
      * Optionaly adds the roll up control
      */
     var addRollupControl = function() {
+        if (navigables[currentNavigable] == null) {
+            return;
+        }
         container.rollupBtn.setDisabled(!navigables[currentNavigable][1]);
         container.rollupBtn.setHandler(function(button) {
             loadingPanel.maximizeControl();
@@ -226,7 +229,7 @@ App.map = function() {
                     loadingPanel.maximizeControl();
                     var bounds = OpenLayers.Control.GetFeature.prototype.pixelToBounds.call(this, evt.xy); // I'm not proud of this one
                     OpenLayers.Request.GET({
-                        url: '/webbi/getmember',
+                        url: './getmember',
                         params: {
                             queryId: App.queryId,
                             bbox: bounds.toBBOX(),
@@ -296,7 +299,7 @@ App.map = function() {
         layers: [
             new OpenLayers.Layer.WMS(
                 'countries',
-                '/webbi/getbaselayer',
+                './getbaselayer',
                 {
                     format: 'image/png'
                 },
@@ -408,7 +411,7 @@ App.map = function() {
     });
 
     var updateLegend = function(onlyPosition) {
-        var uri = '/webbi/getlegend'+
+        var uri = './getlegend'+
             '?QUERYID='+App.queryId+
             '&STYLEID='+App.styleId;
         legend.body.update('<img src="'+uri+'" style="display:block"/>', false);

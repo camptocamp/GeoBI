@@ -256,13 +256,13 @@ App.queryMgr = function(options) {
     var executeQuery = function() {
         _events.triggerEvent('beforequeryregistered');
         Ext.Ajax.request({
-            url: '/webbi/registerquery',
+            url: './registerquery',
             success: function(response) {
                 var id = Ext.util.JSON.decode(response.responseText).id;
                 if (id) {
                     App.queryId = id;
                     Ext.Ajax.request({
-                        url: '/webbi/getmetadata',
+                        url: './getmetadata',
                         method: 'GET',
                         success: function(response) {
                             App.metadata = Ext.util.JSON.decode(response.responseText);
@@ -297,7 +297,7 @@ App.queryMgr = function(options) {
     var loadData = function() {
         App.data && App.data.destroy();
         App.data = new Ext.data.JsonStore({
-            url: "/webbi/getdata?queryId=" + App.queryId,
+            url: "./getdata?queryId=" + App.queryId,
             sortInfo: {
                 field: App.metadata.rows[0].dimension_name
             },

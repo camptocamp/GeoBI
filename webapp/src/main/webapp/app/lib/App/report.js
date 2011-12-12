@@ -9,7 +9,7 @@ App.report = function() {
     // The printProvider that connects us to the print service
     var printProvider = new GeoExt.data.PrintProvider({
         method: "POST",
-        url: '/webbi/report',
+        url: './report',
         autoLoad: true
     });
 
@@ -18,7 +18,7 @@ App.report = function() {
             printButton.setIconClass('loading');
             var hostPort = "http://" + window.location.hostname +
                            (window.location.port === "" ? "" : ':' + window.location.port);
-            var legendUrl = hostPort + '/webbi/getlegend'+
+            var legendUrl = hostPort + './getlegend'+
                 '?QUERYID='+App.queryId+
                 '&STYLEID='+App.styleId+
                 '&FORMAT_OPTIONS=dpi:254';

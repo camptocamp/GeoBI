@@ -4,7 +4,7 @@ App.cubeProperties = function() {
 
     var measures = new Ext.data.JsonStore({
         proxy: new Ext.data.HttpProxy({
-            url: '/webbi/getcubeproperties?datasource=Provider%3DMondrian%3BDataSource%3DMondrianUab%3B&requestType=measures',
+            url: './getcubeproperties?datasource=Provider%3DMondrian%3BDataSource%3DMondrianUab%3B&requestType=measures',
             disableCaching: false,
             method: 'GET'
         }),
@@ -17,7 +17,7 @@ App.cubeProperties = function() {
 
     var dimensions = new Ext.data.JsonStore({
         proxy: new Ext.data.HttpProxy({
-            url: '/webbi/getcubeproperties?datasource=Provider%3DMondrian%3BDataSource%3DMondrianUab%3B&requestType=dimensions',
+            url: './getcubeproperties?datasource=Provider%3DMondrian%3BDataSource%3DMondrianUab%3B&requestType=dimensions',
             disableCaching: false,
             method: 'GET',
             failure: function(response) {
@@ -42,7 +42,7 @@ App.cubeProperties = function() {
 
     var levels = new Ext.data.JsonStore({
         proxy: new Ext.data.HttpProxy({
-            url: '/webbi/getcubeproperties?datasource=Provider%3DMondrian%3BDataSource%3DMondrianUab%3B&requestType=levels',
+            url: './getcubeproperties?datasource=Provider%3DMondrian%3BDataSource%3DMondrianUab%3B&requestType=levels',
             disableCaching: false,
             method: 'GET',
             failure: function(response) {
@@ -70,7 +70,7 @@ App.cubeProperties = function() {
     var addMembers = function(dimension) {
         var store = new Ext.data.JsonStore({
             proxy: new Ext.data.HttpProxy({
-                url: '/webbi/getcubeproperties?datasource=Provider%3DMondrian%3BDataSource%3DMondrianUab%3B&requestType=members',
+                url: './getcubeproperties?datasource=Provider%3DMondrian%3BDataSource%3DMondrianUab%3B&requestType=members',
                 method: 'GET',
                 failure: function(response) {
                     App.errorMgr.show(response, 'getting the list of members');

@@ -78,7 +78,7 @@ App.mapStyler = function() {
         var params = buildParams();
         if (!params.queryId) return;
         Ext.Ajax.request({
-            url: '/webbi/registermapstyle',
+            url: './registermapstyle',
             success: function(response) {
                 var id = Ext.util.JSON.decode(response.responseText).id;
                 _events.fireEvent('styleregistered', id);
