@@ -15,4 +15,7 @@ See Wiki page of github project: https://github.com/camptocamp/GeoBI/wiki
 Contact & contribution
 =======================
 
-Contribution are welcome! Don't hesitate to contact us for more information or tell us how you are using this project.
+Contribution are welcome! Don't hesitate to contact us [1] for more information or tell us how you are using this project.
+We offer support, training and development on this project.
+
+[1] info at camptocamp.com
